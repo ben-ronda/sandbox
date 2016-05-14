@@ -8,7 +8,7 @@ function dna_menu(){
         'type' => MENU_NORMAL_ITEM,
     );
     $items['dna_success_page'] = array(
-        'name' => ' Helix Result',
+        'title' => ' Helix Result',
         'page callback' => 'dna_success',
         'access callback' => TRUE,
         'type' => MENU_CALLBACK,
@@ -21,6 +21,7 @@ function dna_form(){
         '#title' => ' DNA Strand',
         '#type' => 'textfield',
         '#description' => 'Enter a DNA Strand. You may only use A, T, C, or G.',
+        '#element_validate' => array('element_validate_dna'),
         '#required' => TRUE,
     );
     $form['submit'] = array(
@@ -28,6 +29,16 @@ function dna_form(){
         '#value' => 'Go!',
     );
     return $form;
+}
+
+function element_validate_dna($element){
+    $dna_input = str_split(strtolower($element['#value']));
+    $accepted_values = array('a','c','g','t');
+    foreach ($dna_input as $dna){
+        if (!in_array($dna, $accepted_values)){
+            form_error($element, t('Please only enter A, T, C, and G.'));
+        }
+    }
 }
 
 function dna_form_submit($form, &$form_state){
@@ -47,12 +58,14 @@ function dna_form_submit($form, &$form_state){
         }
         array_push($opposite_helix, $nucleotide);
     }
-    $opposite_helix = implode($opposite_helix);
+    $opposite_helix = strtoupper(implode($opposite_helix));
     $_SESSION['opposite_helix'] = $opposite_helix;
+    $_SESSION['original_helix'] = strtoupper($form_state['values']['dna_string']);
     $form_state['redirect'] = 'dna_success_page';
 }
 
 function dna_success(){
+    $original = $_SESSION['original_helix'];
     $opposite = $_SESSION['opposite_helix'];
-    return '<p>' . $opposite . '</p>';
+    return '<h3>Orginal Strand:</h3>' . '<p>' . $original . '</p>' . '<h3>Generated Strand:</h3>' . '<p>' . $opposite . '</p>';
 }
