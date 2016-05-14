@@ -29,3 +29,30 @@ function dna_form(){
     );
     return $form;
 }
+
+function dna_form_submit($form, &$form_state){
+    $dna_strand = strtolower($form_state['values']['dna_string']);
+    $nucleotides = str_split($dna_strand);
+    $opposite_helix = array();
+
+    foreach($nucleotides as $nucleotide){
+        if($nucleotide == 'a'){
+            $nucleotide = 't';
+        } elseif($nucleotide == 't'){
+            $nucleotide = 'a';
+        } elseif ($nucleotide == 'g'){
+            $nucleotide = 'c';
+        } else{
+            $nucleotide = 'g';
+        }
+        array_push($opposite_helix, $nucleotide);
+    }
+    $opposite_helix = implode($opposite_helix);
+    $_SESSION['opposite_helix'] = $opposite_helix;
+    $form_state['redirect'] = 'dna_success_page';
+}
+
+function dna_success(){
+    $opposite = $_SESSION['opposite_helix'];
+    return '<p>' . $opposite . '</p>';
+}
