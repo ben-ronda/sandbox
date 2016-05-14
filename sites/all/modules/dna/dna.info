@@ -1,0 +1,5 @@
+name = DNA
+description = A module for geting the opposite side of a DNA helix given a string of DNA.
+packages = Custom Modules
+core = 7.x
+files[] = dna.module

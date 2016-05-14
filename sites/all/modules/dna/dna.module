@@ -1,0 +1,31 @@
+<?php
+function dna_menu(){
+    $items['dna'] = array(
+        'title' => 'DNA Helix Generator',
+        'page callback' => 'drupal_get_form',
+        'page arguments' => array('dna_form'),
+        'access callback' => TRUE,
+        'type' => MENU_NORMAL_ITEM,
+    );
+    $items['dna_success_page'] = array(
+        'name' => ' Helix Result',
+        'page callback' => 'dna_success',
+        'access callback' => TRUE,
+        'type' => MENU_CALLBACK,
+    );
+    return $items;
+}
+
+function dna_form(){
+    $form['dna_string'] = array(
+        '#title' => ' DNA Strand',
+        '#type' => 'textfield',
+        '#description' => 'Enter a DNA Strand. You may only use A, T, C, or G.',
+        '#required' => TRUE,
+    );
+    $form['submit'] = array(
+        '#type' => 'submit',
+        '#value' => 'Go!',
+    );
+    return $form;
+}
