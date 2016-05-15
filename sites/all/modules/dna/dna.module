@@ -40,9 +40,7 @@ function element_validate_dna($element){
         }
     }
 }
-
-function dna_form_submit($form, &$form_state){
-    $dna_strand = strtolower($form_state['values']['dna_string']);
+function dna($dna_strand){
     $nucleotides = str_split($dna_strand);
     $opposite_helix = array();
 
@@ -59,7 +57,13 @@ function dna_form_submit($form, &$form_state){
         array_push($opposite_helix, $nucleotide);
     }
     $opposite_helix = strtoupper(implode($opposite_helix));
-    $_SESSION['opposite_helix'] = $opposite_helix;
+    return $opposite_helix;
+}
+
+function dna_form_submit($form, &$form_state){
+    $dna_strand = strtolower($form_state['values']['dna_string']);
+    $result = dna($dna_strand);
+    $_SESSION['opposite_helix'] = $result;
     $_SESSION['original_helix'] = strtoupper($form_state['values']['dna_string']);
     $form_state['redirect'] = 'dna_success_page';
 }
