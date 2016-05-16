@@ -3,3 +3,5 @@ description = A module for geting the opposite side of a DNA helix given a strin
 packages = Custom Modules
 core = 7.x
 files[] = dna.module
+files[] = dna.test
+dependencies[] = simpletest

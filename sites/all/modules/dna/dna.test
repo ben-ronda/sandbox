@@ -1,0 +1,22 @@
+<?php
+class DnaTestCase extends DrupalUnitTestCase
+{
+
+    public static function getInfo()
+    {
+        return array(
+            'name' => 'DNA Tests',
+            'description' => 'Test that ensures the DNA module is working properly.',
+            'group' => 'DNA Module Tests',
+        );
+    }
+
+    function testDna()
+    {
+        $description = "Takes a lower case nucleotide and displays the correct pair.";
+        $input = 'a';
+        $result = dna($input);
+        $expected = 'T';
+        $this->assertEqual($result, $expected, $description);
+    }
+}
