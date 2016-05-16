@@ -37,4 +37,26 @@ class DnaTestCase extends DrupalUnitTestCase
         $expected = 'TATTCG';
         $this->assertEqual($result, $expected, $description);
     }
+
+
+}
+
+class DnaFunctionalTest extends DrupalWebTestCase
+{
+    public static function getInfo(){
+        return array(
+            'name' => 'DNA Functional Tests',
+            'description' => 'Test that DNA module functions on the page correcly.',
+            'group' => 'DNA Module Tests',
+        );
+    }
+
+    function setUp(){
+        parent::setup(array('dna'));
+    }
+
+    public function testDnaNav(){
+        $this->drupalGet('dna_success_page');
+        $this->assertText('Helix Result', 'Yay it works?');
+    }
 }
