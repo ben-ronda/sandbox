@@ -18,5 +18,23 @@ class DnaTestCase extends DrupalUnitTestCase
         $result = dna($input);
         $expected = 'T';
         $this->assertEqual($result, $expected, $description);
+
+        $description = 'Test capital nucleotide.';
+        $input = 'A';
+        $result = dna($input);
+        $expected = 'T';
+        $this->assertEqual($result, $expected, $description);
+
+        $description = "Tests a lower case strand of nucleotides.";
+        $input = 'ataagc';
+        $result = dna($input);
+        $expected = 'TATTCG';
+        $this->assertEqual($result, $expected, $description);
+
+        $description = "Tests a capitalized strand of nucleotides.";
+        $input = 'ATAAGC';
+        $result = dna($input);
+        $expected = 'TATTCG';
+        $this->assertEqual($result, $expected, $description);
     }
 }

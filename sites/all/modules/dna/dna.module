@@ -41,6 +41,7 @@ function element_validate_dna($element){
     }
 }
 function dna($dna_strand){
+    $dna_strand = strtolower($dna_strand);
     $nucleotides = str_split($dna_strand);
     $opposite_helix = array();
 
@@ -61,7 +62,7 @@ function dna($dna_strand){
 }
 
 function dna_form_submit($form, &$form_state){
-    $dna_strand = strtolower($form_state['values']['dna_string']);
+    $dna_strand = $form_state['values']['dna_string'];
     $result = dna($dna_strand);
     $_SESSION['opposite_helix'] = $result;
     $_SESSION['original_helix'] = strtoupper($form_state['values']['dna_string']);
