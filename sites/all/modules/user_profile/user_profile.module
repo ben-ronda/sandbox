@@ -1,0 +1,10 @@
+<?php
+function user_profile_form_alter(&$form, &$form_state, $form_id){
+    print_r($form_id);
+    if ($form_id == 'user_profile_form'){
+        $form['field_name_real']['und'][0]['#default_value']='NOTICE ME SENPAI';
+        print '<pre>';
+        print_r($form['field_name_real']['und'][0]['#default_value']);
+        print '</pre>';
+    }
+}

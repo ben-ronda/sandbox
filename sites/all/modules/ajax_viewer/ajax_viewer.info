@@ -1,0 +1,5 @@
+name = Ajax Viewer
+description = Module for enabling ajax views on Article Viewer view block.
+package = Custom Modules
+core = 7.x
+files[] = ajax_viewer.module
